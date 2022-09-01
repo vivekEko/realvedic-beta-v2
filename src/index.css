@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom fonts */
+@font-face {
+  font-family: "HelveticaLight";
+  src: url("../public/fonts/helvetica-font/Nimbus-Sans-D-OT-Light_32752.ttf");
+}
+
+@font-face {
+  font-family: "HelveticaRegular";
+  src: url("../public/fonts/helvetica-font/FreeSans.otf");
+}
+
+/* Accordian */
+
+.accordian_open {
+  max-height: 500px;
+  animation: open 0.3s ease-in;
+}
+
+.accordian_close {
+  animation: close 0.3s ease-out;
+
+  max-height: 0px;
+}
+
+@keyframes open {
+  0% {
+    max-height: 0px;
+  }
+
+  100% {
+    max-height: 250px;
+  }
+}
+
+@keyframes close {
+  0% {
+    max-height: 250px;
+  }
+
+  100% {
+    max-height: 0px;
+  }
+}
