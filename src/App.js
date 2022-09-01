@@ -1,5 +1,9 @@
 // Components and Pages
-import Header, { Hamburger, Header2 } from "./components/global/Header";
+import Header, {
+  BackButton,
+  Hamburger,
+  Header2,
+} from "./components/global/Header";
 import Sidebar, { SidebarOverlay } from "./components/global/Sidebar";
 import HomePage from "./pages/HomePage";
 
@@ -9,7 +13,7 @@ import AboutUsPage from "./pages/AboutUsPage";
 
 // Routing
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   // detecting current location
@@ -17,12 +21,19 @@ function App() {
   const path = location.pathname;
 
   //   local variable
-  const [homeIsActive] = useState(path == "/" ? true : false); // checking if current page is homepage
+  const [homeIsActive, setHomeIsActive] = useState();
+
+  // checking if current page is homepage
+  useEffect(() => {
+    setHomeIsActive(path == "/" ? true : false);
+  }, [path]);
+
   return (
     <div className="cursor-default font-helveticaRegular relative">
       {/* Misc */}
       <SidebarOverlay />
       <Hamburger />
+      <BackButton />
 
       {/* Main Components */}
       {homeIsActive ? <Header /> : <Header2 />}

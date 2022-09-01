@@ -1,5 +1,6 @@
 // react
 import React from "react";
+import { Link } from "react-router-dom";
 
 // media files
 import blog from "../../../assets/img/landingPage/nav/blog.png";
@@ -15,8 +16,11 @@ const Nav = () => {
     <nav className="bg-[#D9D9D9] hidden md:block">
       <div className="w-[85%] lg:w-[70%] flex justify-between items-center gap-10  mx-auto py-10">
         <div>
-          <img src={blog} alt="Blog" className="w-[40px] mx-auto mb-1" />
-          <h1 className="font-bold text-xl">Blog</h1>
+          <Link to="/about_us">
+            <img src={blog} alt="Blog" className="w-[40px] mx-auto mb-1" />
+
+            <h1 className="font-bold text-xl">Blog</h1>
+          </Link>
         </div>
 
         <MomBaby />
