@@ -2,6 +2,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+// Routing
+import { Link } from "react-router-dom";
+
 // Media files
 import logo from "../../assets/img/header/realvedic_logo.svg";
 import avatar from "../../assets/img/header/avatar.png";
@@ -11,17 +14,13 @@ import back from "../../assets/img/header/back_arrow.svg";
 
 // State Management (Recoil JS)
 import sidebarStatusAtom from "../../recoil/sidebar/sidebarStatusAtom";
+import homePageStatusAtom from "../../recoil/misc/homePageStatusAtom";
 import { useRecoilState } from "recoil";
 
 // components
-import MomBaby, { MomBabyLink2 } from "../homePage/1_nav/nav_links/MomBabyLink";
-import PharmaLink, {
-  PharmaLink2,
-} from "../homePage/1_nav/nav_links/PharmaLink";
-import Products, {
-  ProductsLink2,
-} from "../homePage/1_nav/nav_links/ProductsLink";
-import { Link } from "react-router-dom";
+import { MomBabyLink2 } from "../homePage/1_nav/nav_links/MomBabyLink";
+import { PharmaLink2 } from "../homePage/1_nav/nav_links/PharmaLink";
+import { ProductsLink2 } from "../homePage/1_nav/nav_links/ProductsLink";
 
 const Header = () => {
   return (
@@ -176,11 +175,17 @@ export { Hamburger };
 // Back button
 
 const BackButton = () => {
+  //   Global variable
+  const [homeIsActive, setHomeIsActive] = useRecoilState(homePageStatusAtom);
   // go back feature
   const navigate = useNavigate();
 
   return (
-    <div className={`z-[150]  md:hidden   fixed left-2  top-9  `}>
+    <div
+      className={`z-[150]  md:hidden  ${
+        homeIsActive ? "hidden" : "block"
+      }  fixed left-2  top-9 cursor-pointer`}
+    >
       <img
         src={back}
         alt="..."

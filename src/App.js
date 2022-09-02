@@ -6,22 +6,26 @@ import Header, {
 } from "./components/global/Header";
 import Sidebar, { SidebarOverlay } from "./components/global/Sidebar";
 import HomePage from "./pages/HomePage";
-
-// Routing
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AboutUsPage from "./pages/AboutUsPage";
 
 // Routing
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+// State Mangement
+import { useRecoilState } from "recoil";
+import homePageStatusAtom from "./recoil/misc/homePageStatusAtom";
+import CategoryPage from "./pages/CategoryPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
+  //   Global variable
+  const [homeIsActive, setHomeIsActive] = useRecoilState(homePageStatusAtom);
+
   // detecting current location
   const location = useLocation();
   const path = location.pathname;
-
-  //   local variable
-  const [homeIsActive, setHomeIsActive] = useState();
 
   // checking if current page is homepage
   useEffect(() => {
@@ -44,6 +48,8 @@ function App() {
         <Route path="*" element={<HomePage />} />
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/about_us" element={<AboutUsPage />} />
+        <Route exact path="/category" element={<CategoryPage />} />
+        <Route exact path="/product" element={<ProductPage />} />
       </Routes>
     </div>
   );
