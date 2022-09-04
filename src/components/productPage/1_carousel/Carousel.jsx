@@ -41,19 +41,19 @@ const items = [
   </div>,
 ];
 
-const thumbItems = (items, [setThumbIndex, setThumbAnimation]) => {
-  return items.map((item, i) => (
-    <div
-      key={Math.random()}
-      className=" w-[80px] lg:w-[100px]  aspect-square"
-      onClick={() => (setThumbIndex(i), setThumbAnimation(true))}
-    >
-      {item}
-    </div>
-  ));
-};
-
 const Carousel = () => {
+  const thumbItems = (items, [setThumbIndex, setThumbAnimation]) => {
+    return items.map((item, i) => (
+      <div
+        key={i}
+        className=" w-[80px] lg:w-[100px]  aspect-square"
+        onClick={() => (setThumbIndex(i), setThumbAnimation(true))}
+      >
+        {item}
+      </div>
+    ));
+  };
+
   const [mainIndex, setMainIndex] = useState(0);
   const [mainAnimation, setMainAnimation] = useState(false);
   const [thumbIndex, setThumbIndex] = useState(0);

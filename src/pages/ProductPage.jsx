@@ -11,6 +11,7 @@ import vector2 from "../assets/img/productPage/desc/molecule.svg";
 import vector3 from "../assets/img/productPage/desc/herbel.svg";
 import product from "../assets/img/landingPage/category/rectangle.png";
 import Footer from "../components/global/Footer";
+import Carousel2 from "../components/productPage/1_carousel/Carousel2";
 
 const ProductPage = () => {
   const productDetails = [
@@ -336,8 +337,8 @@ const ProductPage = () => {
   return (
     <div>
       <div className="md:flex justify-center items-center gap-5 md:mb-10 w-[90%] mx-auto">
-        <div className="  md:w-[600px]  ml-auto  ">
-          <Carousel />
+        <div className="  md:w-[60%] max-w-[600px]  mx-auto px-[30px]  md:pb-[100px]  ">
+          <Carousel2 />
         </div>
 
         {/* Product select */}

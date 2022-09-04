@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 // Media files
 import logo from "../../assets/img/header/realvedic_logo.svg";
-import avatar from "../../assets/img/header/avatar.png";
-import search from "../../assets/img/header/search.png";
+import avatar from "../../assets/img/header/avatar.svg";
+import search from "../../assets/img/header/search.svg";
 import cart from "../../assets/img/header/cart.svg";
 import back from "../../assets/img/header/back_arrow.svg";
 
@@ -24,7 +24,7 @@ import { ProductsLink2 } from "../homePage/1_nav/nav_links/ProductsLink";
 
 const Header = () => {
   return (
-    <div className=" bg-[#D9D9D9] md:bg-white py-3 sticky right-0 left-0 top-0 z-[95] ">
+    <div className=" bg-[#fcedd1] md:bg-white py-3 sticky right-0 left-0 top-0 z-[95] ">
       <div className="flex justify-between items-center w-[85%] mx-auto ">
         {/* Logo container */}
         <div className="w-fit flex-1  md:flex-none ">
@@ -130,12 +130,12 @@ const Hamburger = () => {
             <div
               className={`  ${
                 sidebarStatus ? "hidden" : "block"
-              } h-[4px] w-[4px] bg-black rounded-full`}
+              } h-[4px] w-[4px] bg-[#C57963] rounded-full`}
             ></div>
             <div
               className={`h-[3px] transition  ${
                 sidebarStatus ? "w-[25px] rotate-45 " : "w-[20px]"
-              } bg-black rounded-lg `}
+              } bg-[#C57963] rounded-lg `}
             ></div>
           </div>
 
@@ -145,8 +145,8 @@ const Hamburger = () => {
               sidebarStatus ? "hidden transition duration-500" : "flex"
             }  justify-start items-center gap-1 my-[4px]`}
           >
-            <div className="h-[4px] w-[4px] bg-black rounded-full"></div>
-            <div className="h-[3px] w-[18px] bg-black rounded-lg"></div>
+            <div className="h-[4px] w-[4px] bg-[#C57963] rounded-full"></div>
+            <div className="h-[3px] w-[18px] bg-[#C57963] rounded-lg"></div>
           </div>
 
           {/* Third bar */}
@@ -154,14 +154,14 @@ const Hamburger = () => {
             <div
               className={` ${
                 sidebarStatus ? "hidden" : "block"
-              } h-[4px] w-[4px] bg-black rounded-full`}
+              } h-[4px] w-[4px] bg-[#C57963] rounded-full`}
             ></div>
             <div
               className={`h-[3px] transition  ${
                 sidebarStatus
                   ? "w-[25px] -rotate-45 -translate-y-[4px] "
                   : "w-[20px]"
-              } bg-black rounded-lg `}
+              } bg-[#C57963] rounded-lg `}
             ></div>
           </div>
         </div>
