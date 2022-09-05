@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 
 // Media files
-import leftArrow from "../../../assets/img/landingPage/banner/left_arrow.png";
+import leftArrow from "../../../assets/img/landingPage/banner/left_arrow.svg";
 import leftDarkArrow from "../../../assets/img/landingPage/banner/left_dark_arrow.png";
 import rightDarkArrow from "../../../assets/img/landingPage/banner/right_dark_arrow.png";
-import rightArrow from "../../../assets/img/landingPage/banner/right_arrow.png";
-import contentImg from "../../../assets/img/landingPage/team/rectangle.png";
+import rightArrow from "../../../assets/img/landingPage/banner/right_arrow.svg";
+import contentImg from "../../../assets/img/landingPage/joinUs/square.svg";
 
 // Carousel / Banner
 import AliceCarousel from "react-alice-carousel";
@@ -97,7 +97,7 @@ const Follow_Us = () => {
         </div>
 
         <div>
-          <h1 className="text-center my-10">@Realvedic</h1>
+          <h1 className="text-center my-10 text-[#C57963]">@Realvedic</h1>
 
           <div className="relative w-[85%]  mx-auto">
             <AliceCarousel
@@ -110,25 +110,15 @@ const Follow_Us = () => {
               responsive={responsiveObject}
               renderPrevButton={() => {
                 return (
-                  <div className=" absolute left-[-20px] md:left-[10px] top-[40%] md:top-[40%] w-[50px]  h-[50px] flex justify-start items-center   opacity-80 hover:opacity-100  group cursor-pointer">
-                    <img src={leftArrow} alt="..." className="md:hidden" />
-                    <img
-                      src={leftDarkArrow}
-                      alt="..."
-                      className="hidden md:block w-[20px] h-[30px]"
-                    />
+                  <div className="absolute left-[-20px] md:left-[-40px] top-[40%] md:top-[40%] w-[50px]  h-[50px] flex justify-start items-center   opacity-80 hover:opacity-100  group cursor-pointer">
+                    <img src={leftArrow} alt="..." className="" />
                   </div>
                 );
               }}
               renderNextButton={() => {
                 return (
-                  <div className=" absolute right-[-20px] md:right-[10px] top-[40%] md:top-[40%]   w-[50px]  h-[50px] flex justify-end items-center   opacity-80 hover:opacity-100  group cursor-pointer">
-                    <img src={rightArrow} alt="..." className="md:hidden" />
-                    <img
-                      src={rightDarkArrow}
-                      alt="..."
-                      className="hidden md:block w-[20px] h-[30px]"
-                    />
+                  <div className=" absolute right-[-20px] md:right-[-40px] top-[40%] md:top-[40%]   w-[50px]  h-[50px] flex justify-end items-center   opacity-80 hover:opacity-100  group cursor-pointer">
+                    <img src={rightArrow} alt="..." className="" />
                   </div>
                 );
               }}

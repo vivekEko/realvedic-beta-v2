@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // media files
-import products from "../../../../assets/img/landingPage/nav/products.png";
+import products from "../../../../assets/img/landingPage/nav/products.svg";
 import down_arrow from "../../../../assets/img/landingPage/nav/down_arrow.png";
 import dropdown_triangle from "../../../../assets/img/landingPage/nav/dropdown_triangle.svg";
 

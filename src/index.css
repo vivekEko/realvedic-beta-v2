@@ -49,13 +49,14 @@
 /* Slick carousel */
 
 .custom-dots {
-  height: 80px !important;
-  bottom: -80px !important;
+  height: 50px !important;
+  bottom: -50px !important;
 }
 
 .custom-dots > li {
-  width: 80px !important;
-  height: 80px !important;
+  width: 50px !important;
+  height: 50px !important;
+  object-fit: contain !important;
 }
 
 .carousel .slick-arrow.slick-prev,

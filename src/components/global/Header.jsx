@@ -61,7 +61,7 @@ export default Header;
 // Second Variant Header
 const Header2 = () => {
   return (
-    <div className=" bg-[#D9D9D9] md:bg-white py-3 sticky top-0 z-[95] md:static ">
+    <div className=" bg-[#FCEDD1] md:bg-white py-3 sticky top-0 z-[95] md:static ">
       <div className="flex justify-between items-center w-[85%] mx-auto ">
         {/* Logo container */}
         <div className="w-fit flex-1  md:flex-none ">

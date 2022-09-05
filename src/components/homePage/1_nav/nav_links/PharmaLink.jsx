@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // media files
-import pharma from "../../../../assets/img/landingPage/nav/pharma.png";
+import pharma from "../../../../assets/img/landingPage/nav/pharma.svg";
 import down_arrow from "../../../../assets/img/landingPage/nav/down_arrow.png";
 import dropdown_triangle from "../../../../assets/img/landingPage/nav/dropdown_triangle.svg";
 

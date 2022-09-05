@@ -12,6 +12,11 @@ import vector3 from "../assets/img/productPage/desc/herbel.svg";
 import product from "../assets/img/landingPage/category/rectangle.png";
 import Footer from "../components/global/Footer";
 import Carousel2 from "../components/productPage/1_carousel/Carousel2";
+import { useRecoilState } from "recoil";
+import productPageAtom from "../recoil/productPage/productPageAtom";
+import BASE_API_ADDRESS from "../misc/baseAddress/BaseAPIAddress";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ProductPage = () => {
   const productDetails = [
@@ -309,23 +314,46 @@ const ProductPage = () => {
     },
   ];
 
+  // Global variables
+  const [productPageApiData, setProductPageApiData] =
+    useRecoilState(productPageAtom);
+
   // Local variable
-  const [sizeArray, setSizeArray] = useState();
-  const [priceArray, setPriceArray] = useState();
+  const [sizeArray, setSizeArray] = useState([]);
+  const [priceArray, setPriceArray] = useState([]);
   const [selectedSizeArray, setSelectedSizeArray] = useState([]);
   const [selectedPriceArray, setSelectedPriceArray] = useState([]);
   const [quantity, setQuantity] = useState(0);
 
-  // Extracting price and size from api
+  // Api call for product page
   useEffect(() => {
-    productDetails?.map((data, index) => {
-      return setSizeArray(data?.size1.split("|"));
-    });
+    if (sessionStorage?.getItem("selected_product")) {
+      axios
+        .get(
+          BASE_API_ADDRESS +
+            "productPage?" +
+            "product=" +
+            sessionStorage?.getItem("selected_product")
+        )
+        .then((resp) => {
+          console.log(resp?.data);
+          setProductPageApiData(resp?.data);
+          setSizeArray(resp?.data?.size);
+          setPriceArray(resp?.data?.price);
+        });
+    }
+  }, [sessionStorage?.getItem("selected_product")]);
 
-    productDetails?.map((data, index) => {
-      return setPriceArray(data?.price1.split("|"));
-    });
-  }, []);
+  // Extracting price and size from api
+  // useEffect(() => {
+  //   productPageApiData?.size?.map((data, index) => {
+  //     return setSizeArray(data?.split("|"));
+  //   });
+
+  //   productPageApiData?.size?.map((data, index) => {
+  //     return setPriceArray(data?.split("|"));
+  //   });
+  // }, []);
 
   // function to remove selected text from array
   function arrayRemove(arr, value) {
@@ -335,7 +363,7 @@ const ProductPage = () => {
   }
 
   return (
-    <div>
+    <div id="top">
       <div className="md:flex justify-center items-center gap-5 md:mb-10 w-[90%] mx-auto">
         <div className="  md:w-[60%] max-w-[600px]  mx-auto px-[30px]  md:pb-[100px]  ">
           <Carousel2 />
@@ -343,73 +371,66 @@ const ProductPage = () => {
 
         {/* Product select */}
         <div className="w-[90%] mx-auto md:w-[350px] lg:w-[400px] xl:w-[500px] md:mr-auto md:ml-0  py-5 ">
-          {productDetails?.map((data, index) => {
-            return (
-              <div key={index}>
-                <h1 className="text-2xl font-extrabold my-2">
-                  {data?.productName}
-                </h1>
+          <div>
+            <h1 className="text-2xl font-extrabold my-2">
+              {productPageApiData?.name}
+            </h1>
 
-                <h3 className="font-semibold">Pack Sizes</h3>
+            <h3 className="font-semibold">Pack Sizes</h3>
 
-                <div className="mt-5">
-                  {priceArray?.map((data, index) => {
-                    return (
-                      <div key={index}>
-                        <div
-                          className={` ${
-                            !selectedPriceArray?.includes(data)
-                              ? "bg-[#FCF55C]"
-                              : "bg-[#90c047]"
-                          } flex justify-between items-center    mb-2 font-bold h-full cursor-pointer`}
-                          onClick={() => {
-                            if (selectedPriceArray?.includes(data)) {
-                              setSelectedPriceArray(
-                                arrayRemove(selectedPriceArray, data)
-                              );
-                            } else {
-                              setSelectedPriceArray((selectedPriceArray) => [
-                                data,
-                              ]);
-                            }
-                          }}
-                        >
-                          <h3 className="p-4">{sizeArray[index]}</h3>
-                          <h3 className="p-4">₹ {data}</h3>
-                          <div className="bg-[#00000033]  h-full p-[1.4rem] flex justify-center items-center">
-                            <img src={tick} alt="..." className=" w-[15px]" />
-                          </div>
-                        </div>
+            <div className="mt-5">
+              {priceArray.map((data, index) => {
+                return (
+                  <div key={index}>
+                    <div
+                      className={` ${
+                        !selectedPriceArray?.includes(data)
+                          ? "bg-[#FCF55C]"
+                          : "bg-[#90c047]"
+                      } flex justify-between items-center    mb-2 font-bold h-full cursor-pointer`}
+                      onClick={() => {
+                        if (selectedPriceArray?.includes(data)) {
+                          setSelectedPriceArray(
+                            arrayRemove(selectedPriceArray, data)
+                          );
+                        } else {
+                          setSelectedPriceArray((selectedPriceArray) => [data]);
+                        }
+                      }}
+                    >
+                      <h3 className="p-4">{sizeArray[index]}</h3>
+                      <h3 className="p-4">₹ {data}</h3>
+                      <div className="bg-[#00000033]  h-full p-[1.4rem] flex justify-center items-center">
+                        <img src={tick} alt="..." className=" w-[15px]" />
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-                {/* Add to cart */}
-                <div className="flex justify-between items-center my-10">
-                  <div
-                    onClick={() => {
-                      if (quantity > 0) {
-                        setQuantity(quantity - 1);
-                      }
-                    }}
-                    className="w-[50px] flex justify-center items-center text-3xl border-[#C57963] border-[1px] aspect-square cursor-pointer"
-                  >
-                    -
-                  </div>
-                  <div className="bg-[#FCF55C] flex-1 text-center py-4 font-bold cursor-pointer">
-                    {quantity > 0 ? quantity : "ADD TO CART"}
-                  </div>
-                  <div
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-[50px] flex justify-center items-center text-3xl border-[#C57963] border-[1px] aspect-square cursor-pointer"
-                  >
-                    +
-                  </div>
-                </div>
+            <div className="flex justify-between items-center my-10">
+              <div
+                onClick={() => {
+                  if (quantity > 0) {
+                    setQuantity(quantity - 1);
+                  }
+                }}
+                className="w-[50px] flex justify-center items-center text-3xl border-[#C57963] border-[1px] aspect-square cursor-pointer"
+              >
+                -
               </div>
-            );
-          })}
+              <div className="bg-[#FCF55C] flex-1 text-center py-4 font-bold cursor-pointer">
+                {quantity > 0 ? quantity : "ADD TO CART"}
+              </div>
+              <div
+                onClick={() => setQuantity(quantity + 1)}
+                className="w-[50px] flex justify-center items-center text-3xl border-[#C57963] border-[1px] aspect-square cursor-pointer"
+              >
+                +
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -421,104 +442,94 @@ const ProductPage = () => {
           <img src={vector3} alt="..." className="w-[40px]" />
         </div>
         <div>
-          {productDetails?.map((data, index) => {
+          {productPageApiData?.desc?.map((data, index) => {
             return (
-              <div key={index}>
-                <div>
-                  {data?.desc?.map((data, index) => {
-                    return (
-                      <div key={index} className="mt-8">
-                        <h1 className="font-bold text-lg mb-2">
-                          {data?.title}
-                        </h1>
-                        <p className="text-base text-[#545454]">
-                          {data?.contents}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
+              <div key={index} className="mt-8">
+                <h1 className="font-bold text-lg mb-2">{data?.title}</h1>
+                <p className="text-base text-[#545454]">{data?.content}</p>
               </div>
             );
           })}
         </div>
 
-        {/* nutitional value */}
-
         <div className="my-10  max-w-[400px]">
-          {productDetails?.map((data, index) => {
-            return (
-              <div key={index}>
-                <div className="text-[#6D6D6D] border border-[#6D6D6D] ">
-                  <h1 className="font-extrabold border-b border-b-[#6d6d6d] p-5 text-lg">
-                    Nutritional Info per 100g (Approx)*
-                  </h1>
-
-                  {data?.nutritional_info?.map(
-                    (nutritionalData, nutritionalIndex) => {
-                      return (
-                        <div
-                          key={nutritionalIndex}
-                          className="grid grid-cols-2 justify-items-center items-center"
-                        >
-                          <h1 className="font-extrabold border-b border-b-[#6d6d6d] p-5 w-full text-left border-r border-r-[#6d6d6d] text-[#7D7D7D]">
-                            {nutritionalData?.title}
-                          </h1>
-                          <h1 className="font-extrabold border-b border-b-[#6d6d6d] p-5 w-full text-right text-[#4A4A4A]">
-                            {nutritionalData?.value}
-                          </h1>
-                        </div>
-                      );
-                    }
-                  )}
-                </div>
-              </div>
-            );
-          })}
+          <div>
+            <div className="text-[#6D6D6D] border border-[#6D6D6D] ">
+              <h1 className="font-extrabold border-b border-b-[#6d6d6d] p-5 text-lg">
+                Nutritional Info per 100g (Approx)*
+              </h1>
+              {productPageApiData?.nutritional_info?.map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="grid grid-cols-2 justify-items-center items-center"
+                  >
+                    <h1 className="font-extrabold border-b border-b-[#6d6d6d] p-5 w-full text-left border-r border-r-[#6d6d6d] text-[#7D7D7D]">
+                      {data?.title}
+                    </h1>
+                    <h1 className="font-extrabold border-b border-b-[#6d6d6d] p-5 w-full text-right text-[#4A4A4A]">
+                      {data?.value}
+                    </h1>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Explore more products */}
-      <div
-        className={` ${
-          productsList[0]?.categoryName === "Shop All" ? "hidden" : "block"
-        }`}
-      >
+      <div>
         <h1 className="text-2xl font-bold w-[90%] mx-auto text-center md:text-left mb-5">
           Explore more products
         </h1>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4   gap-5 py-5 mb-20 w-[90%] mx-auto">
-          {productsList[1]?.products?.map((data, index) => {
+          {productPageApiData?.explore_more?.map((data, index) => {
             return (
               <div key={index} className="group">
-                <div className="w-full overflow-hidden ">
-                  <img
-                    src={product}
-                    alt="product"
-                    className="w-full group-hover:scale-110 transition-all"
-                  />
-                </div>
+                <div>
+                  <div className="w-full overflow-hidden bg-[#FCEDD1] pt-5 px-5 min-h-[250px] flex justify-center items-end">
+                    <img
+                      src={BASE_API_ADDRESS + data?.image}
+                      alt={data?.image}
+                      className=" group-hover:scale-110 transition-all w-[60%] mx-auto cursor-pointer"
+                      onClick={() => {
+                        sessionStorage.setItem("selected_product", data?.name);
+                      }}
+                    />
+                  </div>
 
-                <div className="flex justify-between items-start font-bold text-sm mt-5">
-                  <h1 className="flex-[0.6] leading-4 text-xs sm:text-sm md:text-base   md:leading-5">
-                    {data?.productName}
-                  </h1>
-                  <div className="flex-[0.4]">
-                    <h1 className="p-3 bg-[#ECECEC] w-fit ml-auto text-xs sm:text-sm md:text-base">
-                      {data?.weight}
+                  <div className="flex justify-between items-start font-bold text-sm mt-5">
+                    <h1
+                      className="flex-[0.6] leading-4 text-xs sm:text-sm md:text-base cursor-pointer  md:leading-5"
+                      onClick={() => {
+                        sessionStorage.setItem("selected_product", data?.name);
+                      }}
+                    >
+                      {data?.name}
                     </h1>
+                    <div className="flex-[0.4]">
+                      <h1 className="p-3 bg-[#FCEDD1] w-fit ml-auto text-xs sm:text-sm md:text-base">
+                        {data?.weight}
+                      </h1>
+                    </div>
                   </div>
-                </div>
-                <div className="">
-                  <div className="ml-auto w-fit my-2  text-xs sm:text-sm md:text-base">
-                    Rs. {data?.price.toFixed(2)}
-                  </div>
-                  <div className="bg-[#D9D9D9] text-xs sm:text-sm md:text-base text-center font-bold p-2 px-8 w-fit ml-auto cursor-pointer active:scale-95 transition-all">
-                    ADD TO CART
-                  </div>
-                  <div className="text-xs sm:text-sm md:text-base w-fit ml-auto mt-2 cursor-pointer underline-offset-4 hover:underline hidden md:block">
-                    View Details
+                  <div className="">
+                    <div className="ml-auto w-fit my-2  text-xs sm:text-sm md:text-base">
+                      Rs. {data?.price?.toFixed(2)}
+                    </div>
+                    <div className="bg-[#FCF55C] text-xs sm:text-sm md:text-base text-center font-bold p-2 px-8 w-fit ml-auto cursor-pointer active:scale-95 transition-all">
+                      ADD TO CART
+                    </div>
+                    <div
+                      className="text-xs sm:text-sm md:text-base w-fit ml-auto mt-2 cursor-pointer underline-offset-4 hover:underline hidden md:block"
+                      onClick={() => {
+                        sessionStorage.setItem("selected_product", data?.name);
+                      }}
+                    >
+                      View Details
+                    </div>
                   </div>
                 </div>
               </div>

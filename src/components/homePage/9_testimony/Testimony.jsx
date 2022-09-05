@@ -8,6 +8,13 @@ import blob3 from "../../../assets/img/landingPage/team/blob3.png";
 import blob4 from "../../../assets/img/landingPage/team/blob4.png";
 import profileImg from "../../../assets/img/landingPage/team/rectangle.png";
 
+// State Management (Recoil Js)
+import { useRecoilState } from "recoil";
+import landingPageAtom from "../../../recoil/landingPage/landingPageAtom";
+
+// Base API Address
+import BASE_API_ADDRESS from "../../../misc/baseAddress/BaseAPIAddress";
+
 // Carousel / Banner
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -30,39 +37,15 @@ const responsiveObject = {
   },
 };
 
-const testimonyData = [
-  {
-    cover_img: blob1,
-    profile_img: profileImg,
-    message:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
-  },
-  {
-    cover_img: blob2,
-    profile_img: profileImg,
-    message:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
-  },
-  {
-    cover_img: blob3,
-    profile_img: profileImg,
-    message:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
-  },
-  {
-    cover_img: blob4,
-    profile_img: profileImg,
-    message:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
-  },
-];
-
 const Testimony = () => {
+  // Global Variable
+  const [landingPageApiData] = useRecoilState(landingPageAtom);
+
   // local variables
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [, setSelectedIndex] = useState(0);
   const [testimonials, setTestimonials] = useState();
 
-  const testimonyItems = testimonyData?.map((data, index) => {
+  const testimonyItems = landingPageApiData?.testimonial?.map((data, index) => {
     return (
       <div
         key={index}
@@ -72,16 +55,20 @@ const Testimony = () => {
       >
         {/* Image with vector*/}
         <div className="relative mx-auto w-fit ">
-          <img src={data?.cover_img} alt="..." className="w-64  " />
           <img
-            src={data?.profile_img}
+            src={BASE_API_ADDRESS + data?.back}
+            alt="..."
+            className="w-64  "
+          />
+          <img
+            src={BASE_API_ADDRESS + data?.front}
             alt="..."
             className="absolute rounded-full w-40   aspect-square z-10 top-[25%]   "
           />
         </div>
 
         <div className="mt-10 sm:w-[90%] mx-auto">
-          <p className="text-center text-sm">{data?.message}</p>
+          <p className="text-center text-sm">{data?.content}</p>
         </div>
       </div>
     );
@@ -89,7 +76,7 @@ const Testimony = () => {
 
   useEffect(() => {
     setTestimonials(testimonyItems);
-  }, []);
+  }, [landingPageApiData]);
 
   return (
     <section className="mt-10">
@@ -115,8 +102,8 @@ const Testimony = () => {
                      e?.isActive === "__active"
                        ? //  &&
                          //  e?.activeIndex === selectedIndex
-                         "bg-[#797676] h-[8px] w-[8px]"
-                       : "bg-[#D9D9D9] h-[6px] w-[6px]"
+                         "bg-[#C57963] h-[8px] w-[8px]"
+                       : "bg-[#FCEDD1] h-[6px] w-[6px]"
                    }
                    rounded-full mx-2`}
                 ></div>

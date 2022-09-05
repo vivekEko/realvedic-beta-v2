@@ -2,35 +2,21 @@
 import React from "react";
 
 // Media Files
-import arrow from "../../../assets/img/landingPage/category/arrow.png";
+import arrow from "../../../assets/img/landingPage/category/arrow.svg";
+
+// State Management (Recoil Js)
+import { useRecoilState } from "recoil";
+import landingPageAtom from "../../../recoil/landingPage/landingPageAtom";
+
+// Base API Address
+import BASE_API_ADDRESS from "../../../misc/baseAddress/BaseAPIAddress";
+
+// routing
+import { Link } from "react-router-dom";
 
 const Category = () => {
-  // category list
-  const categoryList = [
-    {
-      categoryName: "Spice Blends",
-    },
-
-    {
-      categoryName: "Flour Packs",
-    },
-    {
-      categoryName: "Dosa Mix",
-    },
-
-    {
-      categoryName: "Rasam & Soups",
-    },
-    {
-      categoryName: "Noodles and Pasta",
-    },
-    {
-      categoryName: "Beverage Mixes",
-    },
-    {
-      categoryName: "Shop All",
-    },
-  ];
+  // Global Variable
+  const [landingPageApiData] = useRecoilState(landingPageAtom);
 
   return (
     <section className="mt-10">
@@ -45,32 +31,62 @@ const Category = () => {
 
         {/* Category grid */}
         <div className="flex flex-col gap-2 md:gap-5 md:flex-wrap md:flex-row md:justify-start   w-full md:w-[85%] mx-auto my-10 ">
-          {categoryList?.map((data, index) => {
+          {landingPageApiData?.category?.map((data, index) => {
             return (
               <div key={index} className="">
-                {data?.categoryName === "Shop All" ? (
-                  <div className="bg-[#F3F3F3]  md:bg-[#d9d9d9] cursor-pointer group py-9 md:py-7 md:px-2  md:rounded-xl md:w-[250px] md:flex justify-center items-center ">
-                    <div className="w-[85%] md:w-[80%] mx-auto flex justify-between items-center">
-                      <h2 className="font-bold ">Shop All</h2>
-                      <img
-                        src={arrow}
-                        alt="shop all"
-                        className="group-hover:scale-110 transition-all"
-                      />
-                    </div>
+                <Link to="/category">
+                  <div>
+                    {data?.name === "Shop All" ? (
+                      <div
+                        className={` bg-[${data?.color}]  text-white  cursor-pointer group py-9 md:py-7 md:px-2  md:rounded-xl md:w-[250px] flex justify-center items-center   border h-[140px] md:h-[125px] `}
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            "selected_category",
+                            data?.name
+                          );
+                        }}
+                      >
+                        <div className="w-[85%] md:w-[80%] mx-auto flex justify-between items-center ">
+                          <h2 className="font-bold text-white  ">
+                            {data?.name}
+                          </h2>
+                          <img
+                            src={BASE_API_ADDRESS + data?.image}
+                            alt={data?.image}
+                            className="group-hover:scale-110 transition-all"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        style={{ backgroundColor: data?.color }}
+                        className={`   cursor-pointer group py-9 md:py-7 md:px-2  md:rounded-xl md:w-[250px] md:flex justify-center items-center `}
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            "selected_category",
+                            data?.name
+                          );
+                        }}
+                      >
+                        <div className="w-[85%] md:w-[80%] mx-auto  flex justify-between items-center">
+                          <div>
+                            <h2 className="font-bold ">{data?.name}</h2>
+                            <h5 className="text-xs mt-1 group-hover:underline underline-offset-4 outline-[#dfdfdf] md:hidden">
+                              View All
+                            </h5>
+                          </div>
+                          <div>
+                            <img
+                              src={BASE_API_ADDRESS + data?.image}
+                              alt={data?.image}
+                              className="w-[70px] group-hover:scale-110 transition-all"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div
-                    className={` bg-[#d9d9d9]  cursor-pointer group py-9 md:py-7 md:px-2  md:rounded-xl md:w-[250px] md:flex justify-center items-center `}
-                  >
-                    <div className="w-[85%] md:w-[80%] mx-auto  ">
-                      <h2 className="font-bold ">{data?.categoryName}</h2>
-                      <h5 className="text-xs mt-1 group-hover:underline underline-offset-4 outline-[#dfdfdf] md:hidden">
-                        View All
-                      </h5>
-                    </div>
-                  </div>
-                )}
+                </Link>
               </div>
             );
           })}

@@ -30,10 +30,11 @@ function App() {
   // checking if current page is homepage
   useEffect(() => {
     setHomeIsActive(path == "/" ? true : false);
+    window.scrollTo(0, 0);
   }, [path]);
 
   return (
-    <div className="cursor-default font-helveticaRegular relative">
+    <div className="cursor-default font-helveticaRegular relative ">
       {/* Misc */}
       <SidebarOverlay />
       <Hamburger />

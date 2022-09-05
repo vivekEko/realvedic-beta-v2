@@ -118,10 +118,10 @@ const Sidebar = () => {
     <div
       className={` fixed top-0 right-0 bottom-0 transition-all duration-500 ${
         sidebarStatus ? "w-[70%] " : "w-[0px]"
-      } overflow-hidden  text-xl bg-[#d9d9d9] z-[100] `}
+      } overflow-hidden  text-xl bg-[#FCEDD1] z-[100] `}
     >
       <div className="min-w-[300px] ml-0">
-        <div className="h-[95px] bg-[#E8E8E8] flex items-center ">
+        <div className="h-[95px] bg-[#FCEDD1] flex items-center ">
           <h1
             className={`w-[85%] mx-auto transition duration-500  ${
               sidebarStatus ? "opacity-100" : "opacity-100"
@@ -137,7 +137,7 @@ const Sidebar = () => {
             return (
               <div key={index}>
                 <div
-                  className="border-[#C6C6C6] border-[1px]"
+                  className="border-[#c57863a4] border-[1px]"
                   onClick={() => {
                     if (selectedHeading === data?.heading && data?.contents) {
                       setSelectedHeading(null);
@@ -167,15 +167,15 @@ const Sidebar = () => {
                 <div
                   className={`overflow-y-hidden ${
                     selectedHeading === data?.heading
-                      ? "accordian_open  border-b-2 border-b-[#C7C7C7]"
+                      ? "accordian_open  border-b-2 border-b-[#c5786363]"
                       : "accordian_close"
                   }  `}
                 >
                   {data?.contents?.map((data, index) => {
                     return (
                       <div key={index}>
-                        <div className="border-[#C6C6C6] border-[1px]">
-                          <h3 className="text-[#545454] text-sm py-4  w-[80%] mx-auto text-right">
+                        <div className="border-[#c5786363] border-[1px] cursor-pointer group">
+                          <h3 className="text-[#545454] text-sm py-4  w-[80%] mx-auto text-right group-hover:text-black transition">
                             {data?.linkName}
                           </h3>
                         </div>

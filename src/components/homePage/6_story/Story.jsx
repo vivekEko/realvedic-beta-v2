@@ -2,7 +2,7 @@
 import React from "react";
 
 // Media files
-import blob from "../../../assets/img/landingPage/story/blob.png";
+import blob from "../../../assets/img/landingPage/story/blob.svg";
 
 const Story = () => {
   return (
@@ -16,7 +16,7 @@ const Story = () => {
 
         <div className="text-center absolute top-0 left-0 right-0 bottom-0">
           <div className="flex flex-col justify-center items-center h-full w-[80%] mx-auto">
-            <h1 className="font-bold text-2xl lg:text-3xl mb-5  w-[60%] mx-auto">
+            <h1 className="font-bold text-2xl lg:text-3xl mb-5  w-[60%] mx-auto text-[#C57963]">
               Story
             </h1>
             <p className="text-sm sm:text-base lg:text-lg md:w-[90%]  lg:w-[80%] xl:w-[75%]">

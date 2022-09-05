@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 
 // Media Files
-import arrow from "../../assets/img/landingPage/footer/down-arrow.png";
-import facebook from "../../assets/img/landingPage/footer/fb.png";
-import instagram from "../../assets/img/landingPage/footer/insta.png";
+import arrow from "../../assets/img/landingPage/footer/down-arrow.svg";
+import facebook from "../../assets/img/landingPage/footer/fb.svg";
+import instagram from "../../assets/img/landingPage/footer/insta.svg";
 const Footer = () => {
   // Footer data
   const footerData = [
@@ -67,7 +67,7 @@ const Footer = () => {
   const [selectedHeading, setSelectedHeading] = useState(null);
 
   return (
-    <footer className="bg-[#D9D9D9] pt-10">
+    <footer className="bg-[#C57963] pt-10 text-[#FCEDD1]">
       {/* Mobile & Tablet footer */}
       <div className="mx-auto w-[85%] pb-3 md:hidden">
         {footerData?.map((data, index) => {
@@ -79,7 +79,7 @@ const Footer = () => {
                     ? setSelectedHeading(null)
                     : setSelectedHeading(data?.heading);
                 }}
-                className=" border-b-2 border-b-[#C7C7C7] transition-all cursor-pointer "
+                className=" border-b-2 border-b-[#FCEDD1] transition-all cursor-pointer "
               >
                 <div className="flex justify-between items-center py-5">
                   <h1 className="font-semibold">{data?.heading}</h1>
@@ -96,7 +96,7 @@ const Footer = () => {
               <div
                 className={`overflow-y-hidden ${
                   selectedHeading === data?.heading
-                    ? "accordian_open  border-b-2 border-b-[#C7C7C7]"
+                    ? "accordian_open  border-b-2 border-b-[#FCEDD1]"
                     : "accordian_close"
                 }  `}
               >
@@ -177,12 +177,12 @@ const Footer = () => {
         </div>
 
         <div className="mt-20 mx-auto w-[85%]">
-          <h1 className="font-bold text-xl text-center pb-5">
+          <h1 className="font-bold text-xl text-center pb-5 text-[#FCEDD1]">
             © {new Date().getFullYear()}, Realvedic Powered by Ekoinfomatics
           </h1>
         </div>
 
-        <div className="bg-[#8E8E8E] h-[50px]"></div>
+        <div className="bg-[#7B4E41] h-[50px]"></div>
       </div>
     </footer>
   );

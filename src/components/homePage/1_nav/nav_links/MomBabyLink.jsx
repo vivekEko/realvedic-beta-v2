@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 // media Files
-import momBaby from "../../../../assets/img/landingPage/nav/momBaby.png";
+import momBaby from "../../../../assets/img/landingPage/nav/momBaby.svg";
 import down_arrow from "../../../../assets/img/landingPage/nav/down_arrow.png";
 import dropdown_triangle from "../../../../assets/img/landingPage/nav/dropdown_triangle.svg";
 

@@ -2,11 +2,11 @@
 import React from "react";
 
 // Media Files
-import blob1 from "../../../assets/img/landingPage/team/blob1.png";
-import blob2 from "../../../assets/img/landingPage/team/blob2.png";
-import blob3 from "../../../assets/img/landingPage/team/blob3.png";
-import blob4 from "../../../assets/img/landingPage/team/blob4.png";
-import profileImg from "../../../assets/img/landingPage/team/rectangle.png";
+import blob1 from "../../../assets/img/landingPage/team/blob1.svg";
+import blob2 from "../../../assets/img/landingPage/team/blob2.svg";
+import blob3 from "../../../assets/img/landingPage/team/blob3.svg";
+import blob4 from "../../../assets/img/landingPage/team/blob4.svg";
+import profileImg from "../../../assets/img/landingPage/team/rectangle.svg";
 
 // team
 const teamMembers = [
