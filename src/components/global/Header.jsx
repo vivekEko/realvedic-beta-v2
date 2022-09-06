@@ -45,11 +45,13 @@ const Header = () => {
             className="w-[25px] lg:w-[30px] hidden md:block"
           />
           <img src={search} alt="search" className="w-[25px] lg:w-[30px]" />
-          <img
-            src={cart}
-            alt="cart"
-            className="w-[25px] lg:w-[30px] mr-[35px]"
-          />
+          <Link to="/cart/">
+            <img
+              src={cart}
+              alt="cart"
+              className="w-[25px] lg:w-[30px] mr-[35px]"
+            />
+          </Link>
         </div>
       </div>
     </div>
@@ -100,11 +102,13 @@ const Header2 = () => {
             className="w-[25px] lg:w-[30px] hidden md:block"
           />
           <img src={search} alt="search" className="w-[25px] lg:w-[30px]" />
-          <img
-            src={cart}
-            alt="cart"
-            className="w-[25px] lg:w-[30px] mr-[35px]"
-          />
+          <Link to="/cart/">
+            <img
+              src={cart}
+              alt="cart"
+              className="w-[25px] lg:w-[30px] mr-[35px]"
+            />
+          </Link>
         </div>
       </div>
     </div>

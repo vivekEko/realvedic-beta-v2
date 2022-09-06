@@ -34,17 +34,11 @@ const Category = () => {
           {landingPageApiData?.category?.map((data, index) => {
             return (
               <div key={index} className="">
-                <Link to="/category">
+                <Link to={"/category/" + data?.name}>
                   <div>
                     {data?.name === "Shop All" ? (
                       <div
                         className={` bg-[${data?.color}]  text-white  cursor-pointer group py-9 md:py-7 md:px-2  md:rounded-xl md:w-[250px] flex justify-center items-center   border h-[140px] md:h-[125px] `}
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            "selected_category",
-                            data?.name
-                          );
-                        }}
                       >
                         <div className="w-[85%] md:w-[80%] mx-auto flex justify-between items-center ">
                           <h2 className="font-bold text-white  ">
@@ -61,12 +55,6 @@ const Category = () => {
                       <div
                         style={{ backgroundColor: data?.color }}
                         className={`   cursor-pointer group py-9 md:py-7 md:px-2  md:rounded-xl md:w-[250px] md:flex justify-center items-center `}
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            "selected_category",
-                            data?.name
-                          );
-                        }}
                       >
                         <div className="w-[85%] md:w-[80%] mx-auto  flex justify-between items-center">
                           <div>

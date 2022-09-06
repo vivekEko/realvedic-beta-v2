@@ -10,28 +10,28 @@ import { useRecoilState } from "recoil";
 import categoryPageAtom from "../recoil/categoryPage/categoryPageAtom";
 import BASE_API_ADDRESS from "../misc/baseAddress/BaseAPIAddress";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CategoryPage = () => {
   // Global Variable
   const [categoryPageApiData, setCategoryPageApiData] =
     useRecoilState(categoryPageAtom);
 
+  // Detecting parameters
+  const parameters = useParams();
+
   // API call for category page
   useEffect(() => {
-    if (sessionStorage?.getItem("selected_category")) {
+    if (parameters?.category_id) {
       axios
-        .get(
-          BASE_API_ADDRESS +
-            "categoryPage?" +
-            "category=" +
-            sessionStorage?.getItem("selected_category")
-        )
+        .get(BASE_API_ADDRESS + "categoryPage", {
+          params: { category: parameters?.category_id },
+        })
         .then((resp) => {
           setCategoryPageApiData(resp?.data);
         });
     }
-  }, [sessionStorage?.getItem("selected_category")]);
+  }, [parameters?.category_id]);
 
   // products list
   const productsList = [
@@ -350,25 +350,17 @@ const CategoryPage = () => {
         {categoryPageApiData?.product?.map((data, index) => {
           return (
             <div key={index} className="group">
-              <Link to="/product">
+              <Link to={"/product/" + data?.name}>
                 <div className="w-full overflow-hidden bg-[#FCEDD1] pt-5 px-5 min-h-[250px] flex justify-center items-end">
                   <img
                     src={BASE_API_ADDRESS + data?.image}
                     alt={data?.image}
                     className=" group-hover:scale-110 transition-all w-[60%] mx-auto cursor-pointer"
-                    onClick={() => {
-                      sessionStorage.setItem("selected_product", data?.name);
-                    }}
                   />
                 </div>
 
                 <div className="flex justify-between items-start font-bold text-sm mt-5">
-                  <h1
-                    className="flex-[0.6] leading-4 text-xs sm:text-sm md:text-base cursor-pointer  md:leading-5"
-                    onClick={() => {
-                      sessionStorage.setItem("selected_product", data?.name);
-                    }}
-                  >
+                  <h1 className="flex-[0.6] leading-4 text-xs sm:text-sm md:text-base cursor-pointer  md:leading-5">
                     {data?.name}
                   </h1>
                   <div className="flex-[0.4]">
@@ -384,12 +376,7 @@ const CategoryPage = () => {
                   <div className="bg-[#FCF55C] text-xs sm:text-sm md:text-base text-center font-bold p-2 px-8 w-fit ml-auto cursor-pointer active:scale-95 transition-all">
                     ADD TO CART
                   </div>
-                  <div
-                    className="text-xs sm:text-sm md:text-base w-fit ml-auto mt-2 cursor-pointer underline-offset-4 hover:underline hidden md:block"
-                    onClick={() => {
-                      sessionStorage.setItem("selected_product", data?.name);
-                    }}
-                  >
+                  <div className="text-xs sm:text-sm md:text-base w-fit ml-auto mt-2 cursor-pointer underline-offset-4 hover:underline hidden md:block">
                     View Details
                   </div>
                 </div>

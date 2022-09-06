@@ -16,7 +16,7 @@ import { useRecoilState } from "recoil";
 import productPageAtom from "../recoil/productPage/productPageAtom";
 import BASE_API_ADDRESS from "../misc/baseAddress/BaseAPIAddress";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ProductPage = () => {
   const productDetails = [
@@ -318,6 +318,14 @@ const ProductPage = () => {
   const [productPageApiData, setProductPageApiData] =
     useRecoilState(productPageAtom);
 
+  // Detecting parameters
+  const parameters = useParams();
+
+  useEffect(() => {
+    console.log("parameters pf product page:");
+    console.log(parameters?.product_id);
+  }, [parameters]);
+
   // Local variable
   const [sizeArray, setSizeArray] = useState([]);
   const [priceArray, setPriceArray] = useState([]);
@@ -327,33 +335,18 @@ const ProductPage = () => {
 
   // Api call for product page
   useEffect(() => {
-    if (sessionStorage?.getItem("selected_product")) {
+    if (parameters?.product_id) {
       axios
-        .get(
-          BASE_API_ADDRESS +
-            "productPage?" +
-            "product=" +
-            sessionStorage?.getItem("selected_product")
-        )
+        .get(BASE_API_ADDRESS + "productPage", {
+          params: { product: parameters?.product_id },
+        })
         .then((resp) => {
-          console.log(resp?.data);
           setProductPageApiData(resp?.data);
           setSizeArray(resp?.data?.size);
           setPriceArray(resp?.data?.price);
         });
     }
-  }, [sessionStorage?.getItem("selected_product")]);
-
-  // Extracting price and size from api
-  // useEffect(() => {
-  //   productPageApiData?.size?.map((data, index) => {
-  //     return setSizeArray(data?.split("|"));
-  //   });
-
-  //   productPageApiData?.size?.map((data, index) => {
-  //     return setPriceArray(data?.split("|"));
-  //   });
-  // }, []);
+  }, [parameters?.product_id]);
 
   // function to remove selected text from array
   function arrayRemove(arr, value) {
@@ -420,7 +413,16 @@ const ProductPage = () => {
               >
                 -
               </div>
-              <div className="bg-[#FCF55C] flex-1 text-center py-4 font-bold cursor-pointer">
+              <div
+                onClick={() => {
+                  if (quantity === 0) {
+                    setQuantity(quantity + 1);
+                  }
+                }}
+                className={` ${
+                  quantity ? "bg-[#90c047]" : "bg-[#FCF55C]"
+                }  flex-1 text-center py-4 font-bold cursor-pointer`}
+              >
                 {quantity > 0 ? quantity : "ADD TO CART"}
               </div>
               <div
@@ -488,25 +490,17 @@ const ProductPage = () => {
           {productPageApiData?.explore_more?.map((data, index) => {
             return (
               <div key={index} className="group">
-                <div>
+                <Link to={"/product/" + data?.name}>
                   <div className="w-full overflow-hidden bg-[#FCEDD1] pt-5 px-5 min-h-[250px] flex justify-center items-end">
                     <img
                       src={BASE_API_ADDRESS + data?.image}
                       alt={data?.image}
                       className=" group-hover:scale-110 transition-all w-[60%] mx-auto cursor-pointer"
-                      onClick={() => {
-                        sessionStorage.setItem("selected_product", data?.name);
-                      }}
                     />
                   </div>
 
                   <div className="flex justify-between items-start font-bold text-sm mt-5">
-                    <h1
-                      className="flex-[0.6] leading-4 text-xs sm:text-sm md:text-base cursor-pointer  md:leading-5"
-                      onClick={() => {
-                        sessionStorage.setItem("selected_product", data?.name);
-                      }}
-                    >
+                    <h1 className="flex-[0.6] leading-4 text-xs sm:text-sm md:text-base cursor-pointer  md:leading-5">
                       {data?.name}
                     </h1>
                     <div className="flex-[0.4]">
@@ -522,16 +516,11 @@ const ProductPage = () => {
                     <div className="bg-[#FCF55C] text-xs sm:text-sm md:text-base text-center font-bold p-2 px-8 w-fit ml-auto cursor-pointer active:scale-95 transition-all">
                       ADD TO CART
                     </div>
-                    <div
-                      className="text-xs sm:text-sm md:text-base w-fit ml-auto mt-2 cursor-pointer underline-offset-4 hover:underline hidden md:block"
-                      onClick={() => {
-                        sessionStorage.setItem("selected_product", data?.name);
-                      }}
-                    >
+                    <div className="text-xs sm:text-sm md:text-base w-fit ml-auto mt-2 cursor-pointer underline-offset-4 hover:underline hidden md:block">
                       View Details
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             );
           })}
