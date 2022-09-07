@@ -7,6 +7,9 @@ import Header, {
 import Sidebar, { SidebarOverlay } from "./components/global/Sidebar";
 import HomePage from "./pages/HomePage";
 import AboutUsPage from "./pages/AboutUsPage";
+import CategoryPage from "./pages/CategoryPage";
+import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
 
 // Routing
 import {
@@ -21,9 +24,6 @@ import { useEffect } from "react";
 // State Mangement
 import { useRecoilState } from "recoil";
 import homePageStatusAtom from "./recoil/misc/homePageStatusAtom";
-import CategoryPage from "./pages/CategoryPage";
-import ProductPage from "./pages/ProductPage";
-import CartPage from "./pages/CartPage";
 
 function App() {
   //   Global variable

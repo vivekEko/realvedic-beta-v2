@@ -13,8 +13,32 @@
   src: url("../public/fonts/helvetica-font/FreeSans.otf");
 }
 
-/* Accordian */
+/* Custom Scroll Bar */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  transition: all 0.3s ease-in-out;
+  background: rgb(211, 210, 210);
+  border-radius: 20px;
+  transition: 0.3s all ease-in;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #646464;
+}
+
+/* Accordian */
 .accordian_open {
   max-height: 500px;
   animation: open 0.3s ease-in;

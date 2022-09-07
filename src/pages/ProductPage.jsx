@@ -17,6 +17,7 @@ import productPageAtom from "../recoil/productPage/productPageAtom";
 import BASE_API_ADDRESS from "../misc/baseAddress/BaseAPIAddress";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import cartPageAtom from "../recoil/cartPage/cartPageAtom";
 
 const ProductPage = () => {
   const productDetails = [
@@ -317,14 +318,10 @@ const ProductPage = () => {
   // Global variables
   const [productPageApiData, setProductPageApiData] =
     useRecoilState(productPageAtom);
+  const [cartData, setCartData] = useRecoilState(cartPageAtom);
 
   // Detecting parameters
   const parameters = useParams();
-
-  useEffect(() => {
-    console.log("parameters pf product page:");
-    console.log(parameters?.product_id);
-  }, [parameters]);
 
   // Local variable
   const [sizeArray, setSizeArray] = useState([]);
@@ -347,6 +344,41 @@ const ProductPage = () => {
         });
     }
   }, [parameters?.product_id]);
+
+  // testing
+
+  useEffect(() => {
+    if (quantity > 0) {
+      console.log("cart_data:");
+      setCartData((cartData) => ({
+        name: productPageApiData?.name,
+        unit_price: selectedPriceArray,
+        quantity: quantity,
+      }));
+    } else {
+      setCartData([]);
+    }
+  }, [quantity]);
+
+  useEffect(() => {
+    console.log("cartData product page:");
+    console.log(cartData);
+  }, [cartData]);
+
+  useEffect(() => {
+    console.log("selectedPriceArray product page:");
+    console.log(selectedPriceArray);
+  }, [selectedPriceArray]);
+
+  // useEffect(() => {
+  //   console.log("quantity product page:");
+  //   console.log(quantity);
+  // }, [quantity]);
+
+  useEffect(() => {
+    console.log("productPageApiData product page:");
+    console.log(productPageApiData);
+  }, [productPageApiData]);
 
   // function to remove selected text from array
   function arrayRemove(arr, value) {
